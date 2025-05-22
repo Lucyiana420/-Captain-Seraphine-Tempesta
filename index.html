@@ -1,28 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Secret Page</title>
+  <meta charset="UTF-8">
+  <title>Captain's Code</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding-top: 50px; }
-    #protected-content { display: none; margin-top: 20px; }
-    input { padding: 8px; font-size: 16px; }
-    button { padding: 8px 16px; font-size: 16px; margin-left: 10px; }
+    body {
+      background-color: #000;
+      color: #f0f0f0;
+      font-family: 'Georgia', serif;
+      text-align: center;
+      padding-top: 60px;
+      background-image: url('https://wallpapers.com/images/hd/dark-ocean-2560-x-1440-wallpaper-0cnwx4uruex2wolj.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    #protected-content {
+      display: none;
+      margin-top: 30px;
+      background-color: rgba(0, 0, 0, 0.75);
+      padding: 20px;
+      border-radius: 10px;
+      display: inline-block;
+      color: white;
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    input {
+      width: 200px;
+    }
+
+    button {
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    button:hover {
+      background-color: #666;
+    }
+
+    #logo {
+      width: 200px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px black;
+    }
+
+    #error-message {
+      color: crimson;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
 
-  <h2>Enter Access Code</h2>
-  <input type="password" id="code-input" placeholder="Enter code here">
-  <button onclick="checkCode()">Submit</button>
-  <p id="error-message" style="color: red;"></p>
+  <!-- Logo Image -->
+  <img src="https://images.stockcake.com/public/2/a/f/2af12bb8-a6f1-47b1-bd0e-ffd4559370fd_large/mystic-moonlit-ship-stockcake.jpg" id="logo" alt="Mystic Pirate Ship">
 
+  <h2>Enter the Captain's Code</h2>
+
+  <input type="password" id="code-input" placeholder="Enter code">
+  <button onclick="checkCode()">Submit</button>
+  <p id="error-message"></p>
+
+  <!-- Hidden Secret Section -->
   <div id="protected-content">
-    <h3>🎉 Welcome to the Secret Page!</h3>
-    <p>This content is only visible to those with the correct code.</p>
+    <h3>☠️ Welcome aboard, Captain!</h3>
+    <p>The secrets of the sea are now yours.</p>
   </div>
 
+  <!-- Audio for unlock -->
+  <audio id="unlock-sound" src="pirate-unlock.mp3" preload="auto"></audio>
+
   <script>
-    const correctCode = "pirate123"; // <-- Change this to your secret code
+    const correctCode = "pirate123"; // Change your secret code here
 
     function checkCode() {
       const input = document.getElementById("code-input").value;
@@ -32,8 +92,9 @@
         document.getElementById("code-input").style.display = "none";
         document.querySelector("button").style.display = "none";
         error.textContent = "";
+        document.getElementById("unlock-sound").play();
       } else {
-        error.textContent = "❌ Incorrect code. Try again.";
+        error.textContent = "❌ Incorrect code. Try again, sailor.";
       }
     }
   </script>
