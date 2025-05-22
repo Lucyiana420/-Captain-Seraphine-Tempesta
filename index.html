@@ -17,13 +17,21 @@
     }
 
     #protected-content {
-      display: none;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 1s ease, transform 1s ease;
       margin-top: 30px;
       background-color: rgba(0, 0, 0, 0.75);
       padding: 20px;
       border-radius: 10px;
-      display: inline-block;
+      display: none;
       color: white;
+      display: inline-block;
+    }
+
+    #protected-content.show {
+      opacity: 1;
+      transform: scale(1);
     }
 
     input, button {
@@ -59,6 +67,12 @@
       color: crimson;
       font-weight: bold;
     }
+
+    #countdown {
+      font-size: 18px;
+      margin-top: 15px;
+      color: #ffd700;
+    }
   </style>
 </head>
 <body>
@@ -76,6 +90,7 @@
   <div id="protected-content">
     <h3>☠️ Welcome aboard, Captain!</h3>
     <p>The secrets of the sea are now yours.</p>
+    <p id="countdown"></p>
   </div>
 
   <!-- Audio for unlock -->
@@ -88,14 +103,44 @@
       const input = document.getElementById("code-input").value;
       const error = document.getElementById("error-message");
       if (input === correctCode) {
-        document.getElementById("protected-content").style.display = "block";
+        const protectedContent = document.getElementById("protected-content");
+        protectedContent.style.display = "block";
+        setTimeout(() => {
+          protectedContent.classList.add("show");
+        }, 10);
         document.getElementById("code-input").style.display = "none";
         document.querySelector("button").style.display = "none";
         error.textContent = "";
         document.getElementById("unlock-sound").play();
+        startCountdown();
       } else {
         error.textContent = "❌ Incorrect code. Try again, sailor.";
       }
+    }
+
+    function startCountdown() {
+      const countdownElement = document.getElementById("countdown");
+      const targetDate = new Date("2025-06-08T12:00:00");
+
+      function updateCountdown() {
+        const now = new Date();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+          countdownElement.innerHTML = "🎉 It's time! The tide has turned!";
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        countdownElement.innerHTML = `⏳ Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
     }
   </script>
 
