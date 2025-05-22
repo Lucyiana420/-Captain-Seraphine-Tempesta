@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secret Page</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding-top: 50px; }
+    #protected-content { display: none; margin-top: 20px; }
+    input { padding: 8px; font-size: 16px; }
+    button { padding: 8px 16px; font-size: 16px; margin-left: 10px; }
+  </style>
+</head>
+<body>
+
+  <h2>Enter Access Code</h2>
+  <input type="password" id="code-input" placeholder="Enter code here">
+  <button onclick="checkCode()">Submit</button>
+  <p id="error-message" style="color: red;"></p>
+
+  <div id="protected-content">
+    <h3>🎉 Welcome to the Secret Page!</h3>
+    <p>This content is only visible to those with the correct code.</p>
+  </div>
+
+  <script>
+    const correctCode = "pirate123"; // <-- Change this to your secret code
+
+    function checkCode() {
+      const input = document.getElementById("code-input").value;
+      const error = document.getElementById("error-message");
+      if (input === correctCode) {
+        document.getElementById("protected-content").style.display = "block";
+        document.getElementById("code-input").style.display = "none";
+        document.querySelector("button").style.display = "none";
+        error.textContent = "";
+      } else {
+        error.textContent = "❌ Incorrect code. Try again.";
+      }
+    }
+  </script>
+
+</body>
+</html>
