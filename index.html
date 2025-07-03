@@ -73,6 +73,11 @@
       margin-top: 15px;
       color: #ffd700;
     }
+
+    #video-container {
+      display: none;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -91,6 +96,17 @@
     <h3>☠️ Welcome aboard, Captain!</h3>
     <p>The secrets of the sea are now yours.</p>
     <p id="countdown"></p>
+
+    <!-- Hidden YouTube Video -->
+    <div id="video-container">
+      <h4>🎬 Tijd voor het geheim van de zee:</h4>
+      <iframe width="560" height="315"
+        src="https://www.youtube.com/embed/GJrYMMZb4_Y"
+        title="YouTube video"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
+    </div>
   </div>
 
   <!-- Audio for unlock -->
@@ -120,6 +136,7 @@
 
     function startCountdown() {
       const countdownElement = document.getElementById("countdown");
+      const videoContainer = document.getElementById("video-container");
       const targetDate = new Date("2025-06-08T12:00:00");
 
       function updateCountdown() {
@@ -128,6 +145,7 @@
 
         if (diff <= 0) {
           countdownElement.innerHTML = "🎉 It's time! The tide has turned!";
+          videoContainer.style.display = "block"; // Toon video
           return;
         }
 
@@ -146,3 +164,4 @@
 
 </body>
 </html>
+
